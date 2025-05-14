@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Аудиотреки</title>
+</head>
+<body>
+    <h1>Список треков</h1>
+    <ul>
+        {% for track in tracks %}
+        <li>
+            <strong>{{ track.name }}</strong> — автор: {{ track.author.name }} <br>
+            <audio controls>
+                <source src="{{ url_for('static', path='tracks/' + track.file_name) }}" type="audio/mpeg">
+                Ваш браузер не поддерживает аудио элемент.
+            </audio>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
