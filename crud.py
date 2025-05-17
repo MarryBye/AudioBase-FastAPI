@@ -51,9 +51,8 @@ def delete_author(db: Session, author_id: int):
     if db_author is None:
         return None
     
-    if db_author:
-        db.delete(db_author)
-        db.commit()
+    db.delete(db_author)
+    db.commit()
         
     return db_author
 
@@ -200,9 +199,13 @@ def update_playlist(db: Session, playlist_id: int, playlist: schemas.PlayListUpd
 
 def delete_playlist(db: Session, playlist_id: int):
     db_playlist = db.query(models.PlayList).filter(models.PlayList.id == playlist_id).first()
-    if db_playlist:
-        db.delete(db_playlist)
-        db.commit()
+    
+    if db_playlist is None:
+        return None
+    
+    db.delete(db_playlist)
+    db.commit()
+    
     return db_playlist
 
 #-----------------------------------------------------------------------------------------------#
@@ -234,5 +237,3 @@ def remove_track_from_playlist(db: Session, playlist_id: int, track_id: int):
     db.commit()
     
     return db_link
-
-
